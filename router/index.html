@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alamin Khan — Professional Web Developer</title>
+    <meta name="description" content="Alamin Khan is a professional web developer specializing in custom websites, e-commerce, SaaS applications, automation and modern web solutions." />
+    <!--
+      Device router — this page never renders the site itself. It only
+      decides, on load, whether the visitor is on a touch/mobile device
+      or a desktop, and immediately sends them to the matching build:
+        /pc/       -> desktop build (240-frame hero, hover cursor, etc.)
+        /android/  -> mobile build (80-frame hero, touch-tuned scroll)
+
+      Detection combines two signals so it's reliable across devices:
+        1. User-Agent match for known mobile/Android/iOS identifiers.
+        2. Coarse pointer (touch) + narrow viewport, to catch mobile
+           browsers that spoof their UA.
+
+      Add ?nogate to the URL to skip the redirect (useful for testing
+      either build from a desktop browser, e.g. yoursite.com/?nogate).
+    -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var target;
+
+        if (params.has("nogate")) {
+          // Manual override: ?nogate=pc or ?nogate=android
+          target = params.get("nogate") === "android" ? "android" : "pc";
+        } else {
+          var ua = navigator.userAgent || "";
+          var isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua);
+          var isCoarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+          var isMobile = isMobileUA || (isCoarsePointer && window.innerWidth < 900);
+          target = isMobile ? "android" : "pc";
+        }
+
+        window.location.replace("./" + target + "/" + window.location.hash);
+      })();
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=./pc/" />
+    </noscript>
+  </head>
+  <body>
+    <!-- Fallback for JS-disabled browsers / crawlers -->
+    <p>
+      Redirecting… If you are not redirected automatically,
+      choose a version:
+      <a href="./pc/">Desktop site</a> ·
+      <a href="./android/">Mobile site</a>
+    </p>
+  </body>
+</html>
