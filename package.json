@@ -1,0 +1,19 @@
+{
+  "name": "alamin-portfolio-full",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Alamin Khan portfolio — PC + Android builds with automatic device routing.",
+  "workspaces": [
+    "pc",
+    "android"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build --workspace=alamin-portfolio-pc && npm run build --workspace=alamin-portfolio-android && node scripts/assemble.js",
+    "start": "node scripts/serve.js",
+    "dev:pc": "npm run dev --workspace=alamin-portfolio-pc",
+    "dev:android": "npm run dev --workspace=alamin-portfolio-android"
+  }
+}
