@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      Device guard — this is the PC/desktop build. If someone lands here
+      directly (e.g. a shared link) on a touch/mobile device, bounce them
+      to the sibling ../android/ build instead. Runs before anything
+      else loads so there's no flash of the wrong layout.
+      Assumes the deployment layout: /pc/ and /android/ as sibling
+      folders under the same domain root.
+    -->
+    <script>
+      (function () {
+        var ua = navigator.userAgent || "";
+        var isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua);
+        var isCoarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        var isMobile = isMobileUA || (isCoarsePointer && window.innerWidth < 900);
+        if (isMobile && !/[?&]nogate\b/.test(window.location.search)) {
+          window.location.replace("../android/" + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alamin Khan — Professional Web Developer</title>
+    <meta name="description" content="Alamin Khan is a professional web developer specializing in custom websites, e-commerce, SaaS applications, automation and modern web solutions." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Alamin Khan — Professional Web Developer" />
+    <meta property="og:description" content="Custom websites, e-commerce, SaaS applications, automation and modern web solutions." />
+    <meta property="og:image" content="og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Alamin Khan — Professional Web Developer" />
+    <meta name="twitter:description" content="Custom websites, e-commerce, SaaS applications, automation and modern web solutions." />
+    <meta name="twitter:image" content="og-image.jpg" />
+
+    <!-- This is the /pc/ device-build, not the canonical URL — the root
+         domain (router) is what should be indexed, so this variant is
+         excluded from search results to avoid duplicate-content with
+         ../android/. -->
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://alaminkhan.dev/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
