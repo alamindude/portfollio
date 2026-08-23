@@ -1,0 +1,12 @@
+{
+  // Cloudflare project/Worker name — shows up in your dashboard and the
+  // default *.workers.dev URL. Change if you want a different name.
+  "name": "alamin-khan-portfolio",
+  "compatibility_date": "2026-08-23",
+
+  // No server-side code — this is a pure static site, so there's no
+  // "main" entry point. Wrangler just uploads and serves dist/ as-is.
+  "assets": {
+    "directory": "./dist"
+  }
+}
